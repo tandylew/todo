@@ -21,7 +21,7 @@ def index(request):
                 print(result)
             except:
                 print("No results")
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'create_task.html', {'form': form})
             #return HttpResponse("Hello Word. You're Andy")
         elif request.method == 'POST':
             mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
@@ -40,41 +40,16 @@ def index(request):
             #return HttpResponse(todo + "<br>" + month +"/" + day + "/" + year)
             #return HttpResponse("Hello Word. You're Andy")
             #connection.cursor().execute("INSERT INTO list VALUES(%s)", request.POST['email'])
-            return HttpResponseRedirect('/create_list/')
+            return HttpResponseRedirect('/create_task/')
 
-def create_list(request):
+def create_task(request):
     if request.method == 'GET':
-        mydb =mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
+        mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
         mycursor = mydb.cursor(buffered=True)
         mycursor.execute("SELECT * FROM todo")
         result = mycursor.fetchall()
         return HttpResponse(result)
         #form = ContactForm(request.POST)
-        #return render(request, 'create_list.html')
+        #return render(request, 'create_task.html')
     elif request.method == 'POST':
-        requestBody = JSONEncoder().encode({ '__metadata': { 'type': 'SP.List' }, 'BaseTemplate': 100, 'Title': 'Test'})
-        r = s.post("https://biascorp.sharepoint.com/sites/OfficeDepot/_api/web/lists",data=requestBody)
-        return HttpResponseRedirect('/delete_list/')
-
-def create_list_item(request):
-    s = sharepy.load()
-    if request.method == 'GET':
-        form = ContactForm(request.POST)
-        return render(request, 'list_item.html')
-    elif request.method == 'POST':
-        requestBody = JSONEncoder().encode({ '__metadata': { 'type': 'SP.Data.TestListItem' }, 'Title': 'Test'})
-        r = s.post("https://biascorp.sharepoint.com/sites/OfficeDepot/_api/web/lists/GetByTitle('Test')/items",data=requestBody)
-        return HttpResponse(r.text)
-    #r = s.getfile('https://biascorp.sharepoint.com/_layouts/15/userphoto.aspx?size=L&accountname=i%3A0%23.f%7Cmembership%7C' + s.username, filename='todo/output.jpg')
-    #image_data = open("todo/output.jpg", "rb").read()
-    #return HttpResponse(image_data, content_type="image/jpeg")
-    #return HttpResponse("Hello Word. You're Andy")
-
-def delete_list(request):
-    s = sharepy.load()
-    if request.method == 'GET':
-        form = ContactForm(request.POST)
-        return render(request, 'delete_list.html')
-    elif request.method == 'POST':
-        r = s.post("https://biascorp.sharepoint.com/sites/OfficeDepot/_api/web/lists/GetByTitle('Test')",headers={"X-HTTP-Method": "DELETE","If-Match": "*"})
-        return HttpResponse(r.text)
+        return HttpResponse("Hello Word. You're Andy")
