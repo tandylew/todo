@@ -21,7 +21,7 @@ def index(request):
                 print(result)
             except:
                 print("No results")
-            return render(request, 'create_task.html', {'form': form})
+            return render(request, 'display_task.html', {'form': form})
             #return HttpResponse("Hello Word. You're Andy")
         elif request.method == 'POST':
             mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
@@ -40,9 +40,9 @@ def index(request):
             #return HttpResponse(todo + "<br>" + month +"/" + day + "/" + year)
             #return HttpResponse("Hello Word. You're Andy")
             #connection.cursor().execute("INSERT INTO list VALUES(%s)", request.POST['email'])
-            return HttpResponseRedirect('/create_task/')
+            return HttpResponseRedirect('/display_task/')
 
-def create_task(request):
+def display_task(request):
     if request.method == 'GET':
         mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
         mycursor = mydb.cursor(buffered=True)
@@ -50,6 +50,6 @@ def create_task(request):
         result = mycursor.fetchall()
         return HttpResponse(result)
         #form = ContactForm(request.POST)
-        #return render(request, 'create_task.html')
+        #return render(request, 'display_task.html')
     elif request.method == 'POST':
         return HttpResponse("Hello Word. You're Andy")
