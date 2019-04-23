@@ -1,7 +1,8 @@
-<!-- templates/registration/create_task.html -->
-<h2>Create Task</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Create!</button>
-</form>
+<!-- templates/registration/display_task.html -->
+<h2>Display Task</h2>
+{{task_list}}
+{% for task in task_list %}
+<br>
+    <tb>{{task.todo}}</tb>
+    <tb>{{task.due_date}}</tb>
+{% endfor %}

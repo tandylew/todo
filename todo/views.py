@@ -4,7 +4,7 @@ from django.template import Context, loader
 from django import forms
 from django.db import connection
 import mysql.connector
-from .forms import DateForm
+from .forms import DateForm, SqlForm
 from json import JSONEncoder
 import urllib.request
 import datetime
@@ -13,6 +13,7 @@ import datetime
 def index(request):
         if request.method == 'GET':
             form = DateForm(request.POST)
+            sql = SqlForm(request.POST)
             try:
                 mydb =mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
                 mycursor = mydb.cursor(buffered=True)
@@ -21,7 +22,7 @@ def index(request):
                 print(result)
             except:
                 print("No results")
-            return render(request, 'display_task.html', {'form': form})
+            return render(request, 'create_task.html', {'form': form}, {'sql': sql})
             #return HttpResponse("Hello Word. You're Andy")
         elif request.method == 'POST':
             mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
@@ -45,10 +46,11 @@ def index(request):
 def display_task(request):
     if request.method == 'GET':
         mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
-        mycursor = mydb.cursor(buffered=True)
+        mycursor = mydb.cursor(buffered=True,dictionary=True)
         mycursor.execute("SELECT * FROM todo")
         result = mycursor.fetchall()
-        return HttpResponse(result)
+        return render(request, 'display_task.html', {'task_list': result})
+        #return HttpResponse(result)
         #form = ContactForm(request.POST)
         #return render(request, 'display_task.html')
     elif request.method == 'POST':
