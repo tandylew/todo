@@ -4,6 +4,7 @@ from django.template import Context, loader
 from django import forms
 from django.db import connection
 import mysql.connector
+import matplotlib.pyplot as plt
 from .forms import DateForm, SqlForm
 from json import JSONEncoder
 import urllib.request
@@ -65,3 +66,10 @@ def display_task(request):
         #return render(request, 'display_task.html')
     elif request.method == 'POST':
         return HttpResponse("Hello Word. You're Andy")
+
+def graph(request):
+    if request.method == 'GET':
+        plt.plot(range(20))
+        plt.savefig("todo/graph.png")
+        image_data = open("todo/graph.png", "rb").read()
+        return HttpResponse(image_data, content_type="image/png")
