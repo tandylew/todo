@@ -1,4 +1,32 @@
 <!-- templates/registration/create_task.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {
+  height: 100%;
+}
+
+.parallax {
+  /* The image used */
+  background-image: url('park.jpg');
+
+  /* Full height */
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+
+<div class="parallax"></div>
+
 <h2>Create Task</h2>
 <form method="post">
   {% csrf_token %}
@@ -9,3 +37,4 @@
   {{ sql.as_p }}
   <button type="submit">Submit SQL</button>
 </form>
+</body>

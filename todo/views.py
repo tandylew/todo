@@ -73,3 +73,8 @@ def graph(request):
         plt.savefig("todo/graph.png")
         image_data = open("todo/graph.png", "rb").read()
         return HttpResponse(image_data, content_type="image/png")
+
+def park(request):
+    if request.method == 'GET':
+        image_data = open("todo/park.jpg", "rb").read()
+        return HttpResponse(image_data, content_type="image/jpg")
