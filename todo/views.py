@@ -16,13 +16,6 @@ def index(request):
         if request.method == 'GET':
             form = DateForm(request.POST)
             sql = SqlForm(request.POST)
-            try:
-                mydb =mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
-                mycursor = mydb.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM todo")
-                result = mycursor.fetchall()
-            except:
-                print("No results")
             return render(request, 'create_task.html', {'form': form, 'sql': sql})
             #return HttpResponse("Hello Word. You're Andy")
         elif request.method == 'POST':

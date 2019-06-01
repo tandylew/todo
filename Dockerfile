@@ -16,11 +16,11 @@ RUN apt-get install -y \
 # Project Files and Settings
 ARG PROJECT=todo
 ARG PROJECT_DIR=/var/www/${PROJECT}
-RUN mkdir -p $PROJECT_DIR
+RUN mkdir -p $PROJECT_DIR/$PROJECT
 WORKDIR $PROJECT_DIR
 COPY requirements.txt .
 COPY manage.py ${PROJECT_DIR}
-COPY todo ${PROJECT_DIR}
+COPY todo ${PROJECT_DIR}/${PROJECT}
 RUN pip install -r requirements.txt
 # Server
 EXPOSE 8000
