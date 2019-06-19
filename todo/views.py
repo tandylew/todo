@@ -1,11 +1,13 @@
 from django.http import HttpResponse,HttpRequest,HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.template import Context, loader
 from django import forms
 from django.db import connection
 import mysql.connector
 import matplotlib.pyplot as plt
-from .forms import DateForm, SqlForm
+from .forms import DateForm, SqlForm, AuthenticationForm
 from json import JSONEncoder
 import urllib.request
 import datetime
@@ -16,6 +18,13 @@ def index(request):
         if request.method == 'GET':
             form = DateForm(request.POST)
             sql = SqlForm(request.POST)
+            try:
+                mydb = mysql.connector.connect(host='172.18.0.1',user='root',passwd='Welcome1',database='mydb',auth_plugin='mysql_native_password')
+                mycursor = mydb.cursor(buffered=True)
+                mycursor.execute("SELECT * FROM todo")
+                result = mycursor.fetchall()
+            except:
+                print("No results")
             return render(request, 'create_task.html', {'form': form, 'sql': sql})
             #return HttpResponse("Hello Word. You're Andy")
         elif request.method == 'POST':
@@ -71,3 +80,23 @@ def park(request):
     if request.method == 'GET':
         image_data = open("todo/park.jpg", "rb").read()
         return HttpResponse(image_data, content_type="image/jpg")
+
+def login_info(request):
+    if request.method == 'GET':
+        login_info = AuthenticationForm(request.POST) 
+        return render(request, 'login.html', {'login': login_info})
+    if request.method == 'POST':
+        response = request.read().decode().split('&')
+        username = response[1][response[1].find('=')+1:]
+        password = response[2][response[2].find('=')+1:]
+        #request.session = get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+        #username = request.POST['username']
+        #password = request.POST['password']
+        user = User.objects.create_user(username, password=password)
+        user = authenticate(username=username, password=password)
+        if user:
+            print(username + password)
+            login(request, user)
+            return HttpResponse("Hello Word. You're " + username)
+        else:
+            return HttpResponse("Hello Word. You're Andy")

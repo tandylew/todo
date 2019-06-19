@@ -9,7 +9,9 @@ if __name__ == "__main__":
     settings.ALLOWED_HOSTS = ['*']
     settings.TEMPLATES = [{'BACKEND': 'django.template.backends.django.DjangoTemplates','DIRS': [os.path.join(os.getcwd(), 'todo')],'APP_DIRS': True}]
     settings.ROOT_URLCONF = 'todo.urls'
-    #settings.DATABASES = {'default':{'ENGINE':'django.db.backends.mysql'}}
+    settings.INSTALLED_APPS = ['django.contrib.contenttypes','django.contrib.auth','django.contrib.sessions']
+    settings.MIDDLEWARE = ['django.contrib.sessions.middleware.SessionMiddleware']
+    settings.DATABASES = {'default':{'NAME':'mydb','ENGINE':'mysql.connector.django','USER':'root','PASSWORD':'Welcome1','HOST':'172.18.0.1'}}
     try:
         from django.core.management import execute_from_command_line
     except ImportError:
