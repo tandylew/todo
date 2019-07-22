@@ -92,11 +92,15 @@ def login_info(request):
         #request.session = get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
         #username = request.POST['username']
         #password = request.POST['password']
-        user = User.objects.create_user(username, password=password)
         user = authenticate(username=username, password=password)
         if user:
-            print(username + password)
+            print("User: " + username + "Password: " + password)
             login(request, user)
             return HttpResponse("Hello Word. You're " + username)
         else:
-            return HttpResponse("Hello Word. You're Andy")
+            try:              
+                 user = User.objects.create_user(username, password=password)
+                 login(request, user)
+            except:
+                 username = 'Andy'
+        return HttpResponse("Hello Word. You're " + username)

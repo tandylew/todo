@@ -1,5 +1,6 @@
 <!-- templates/registration/display_task.html -->
 <h2>Display Task</h2>
+<p>Welcome, {{ request.user }} {{ user.username }}. Thanks for logging in.</p>
 {{task_list}}
 {% for task in task_list %}
 <br>
