@@ -1,5 +1,4 @@
 django
 matplotlib
-mysql.connector
 mysql-connector-python
 requests
