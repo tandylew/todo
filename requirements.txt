@@ -1,4 +1,5 @@
 django
 matplotlib
+gunicorn
 mysql-connector-python
 requests
