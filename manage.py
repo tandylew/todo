@@ -13,7 +13,7 @@ if __name__ == "__main__":
 #    settings.INSTALLED_APPS = ['django.contrib.contenttypes','django.contrib.auth','django.contrib.sessions']
 #    settings.MIDDLEWARE = ['django.contrib.sessions.middleware.SessionMiddleware']
 #    settings.DATABASES = {'default':{'NAME':'mydb','ENGINE':'mysql.connector.django','USER':'root','PASSWORD':'Welcome1','HOST':'172.18.0.1'}}
-#    runserver.default_port = int(os.environ.get('PORT', 5000))
+#    runserver.default_port = int(os.environ.get('PORT', 8000))
     try:
         from django.core.management import execute_from_command_line
     except ImportError:
