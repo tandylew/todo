@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from django.core.management.commands.runserver import Command as runserver
 import os
+import socket
 import sys
 
 if __name__ == "__main__":
@@ -14,6 +15,7 @@ if __name__ == "__main__":
 #    settings.MIDDLEWARE = ['django.contrib.sessions.middleware.SessionMiddleware']
 #    settings.DATABASES = {'default':{'NAME':'mydb','ENGINE':'mysql.connector.django','USER':'root','PASSWORD':'Welcome1','HOST':'172.18.0.1'}}
     runserver.default_port = int(os.environ.get('PORT', 8000))
+    sock = socket.create_connection(('0.0.0.0', runserver.default_port))
     print('Port var: %s' % os.environ.get('PORT'))
     try:
         from django.core.management import execute_from_command_line
