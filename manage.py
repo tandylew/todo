@@ -15,6 +15,7 @@ if __name__ == "__main__":
 #    settings.MIDDLEWARE = ['django.contrib.sessions.middleware.SessionMiddleware']
 #    settings.DATABASES = {'default':{'NAME':'mydb','ENGINE':'mysql.connector.django','USER':'root','PASSWORD':'Welcome1','HOST':'172.18.0.1'}}
     runserver.default_port = int(os.environ.get('PORT', 5000))
+    print(runserver.default_port)
 #    sock = socket.create_connection(('0.0.0.0', runserver.default_port))
 #    print('Port var: %s' % os.environ.get('PORT'))
     try:
